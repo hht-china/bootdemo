@@ -20,6 +20,7 @@ import java.util.Date;
  */
 public class LogUtil {
     private static final Logger logger = LoggerFactory.getLogger(LogUtil.class);
+    private static String UNKNOWN = "unknown";
 
     public static SysLog getSysLog(JoinPoint joinPoint) {
         SysLog sysLog = new SysLog();
@@ -58,19 +59,19 @@ public class LogUtil {
         String ip = null;
         try {
             ip = request.getHeader("x-forwarded-for");
-            if (StringUtils.isEmpty(ip) || "unknown".equalsIgnoreCase(ip)) {
+            if (StringUtils.isEmpty(ip) || UNKNOWN.equalsIgnoreCase(ip)) {
                 ip = request.getHeader("Proxy-Client-IP");
             }
-            if (StringUtils.isEmpty(ip) || ip.length() == 0 || "unknown".equalsIgnoreCase(ip)) {
+            if (StringUtils.isEmpty(ip) || ip.length() == 0 || UNKNOWN.equalsIgnoreCase(ip)) {
                 ip = request.getHeader("WL-Proxy-Client-IP");
             }
-            if (StringUtils.isEmpty(ip) || "unknown".equalsIgnoreCase(ip)) {
+            if (StringUtils.isEmpty(ip) || UNKNOWN.equalsIgnoreCase(ip)) {
                 ip = request.getHeader("HTTP_CLIENT_IP");
             }
-            if (StringUtils.isEmpty(ip) || "unknown".equalsIgnoreCase(ip)) {
+            if (StringUtils.isEmpty(ip) || UNKNOWN.equalsIgnoreCase(ip)) {
                 ip = request.getHeader("HTTP_X_FORWARDED_FOR");
             }
-            if (StringUtils.isEmpty(ip) || "unknown".equalsIgnoreCase(ip)) {
+            if (StringUtils.isEmpty(ip) || UNKNOWN.equalsIgnoreCase(ip)) {
                 ip = request.getRemoteAddr();
             }
         } catch (Exception e) {
